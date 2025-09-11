@@ -7,6 +7,15 @@ TagManager:
   - Garbage
   - Medicine
   - Fire
+  - Bus
+  - Traktor
+  - Car
+  - Police
+  - Cement
+  - e46Car
+  - e61Car
+  - YellowTraktor
+  - Eksakvators
   layers:
   - Default
   - TransparentFX

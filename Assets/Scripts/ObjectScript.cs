@@ -1,9 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectScript : MonoBehaviour
 {
     public GameObject[] vehicles;
-    [SerializeField]
+    [HideInInspector]
     public Vector2[] startCoordinates;
     public Canvas can;
     public AudioSource effects;
@@ -11,15 +13,22 @@ public class ObjectScript : MonoBehaviour
     [HideInInspector]
     public bool rightPlace = false;
     public GameObject lastDragged = null;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    // Start is called before the first frame update
+    void Awake()
     {
+        startCoordinates = new Vector2[vehicles.Length];
+        for(int i=0;i<vehicles.Length;i++)
+        {
+            startCoordinates[i] = vehicles[i].GetComponent<RectTransform>().localPosition;
+        }
         
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
