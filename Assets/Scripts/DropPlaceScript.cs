@@ -34,7 +34,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                 Debug.Log("Y size difference: " + ySizeDiff);
 
                 if ((rotDiff <= 5 || (rotDiff >= 355 && rotDiff <= 360)) &&
-                    (xSizeDiff <= 0.10 && ySizeDiff <= 0.10))
+                    (xSizeDiff <= 0.15 && ySizeDiff <= 0.15))
                 {
                     Debug.Log("Correct place");
                     objScript.rightPlace = true;
