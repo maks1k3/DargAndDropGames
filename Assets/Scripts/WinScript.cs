@@ -1,30 +1,38 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WinScript : MonoBehaviour
 {
     public GameObject[] car;
-    public GameObject win;
+    public GameObject winPanel;
+    public Timer timer;
+    public Text finalTimeText;
 
+    private bool gameFinished = false;
 
-    
-
-    // Update is called once per frame
     void Update()
     {
-        if (carPlace())
+        if (!gameFinished && carPlace())
         {
-            if (win == null)
-                win.SetActive(true);
+            gameFinished = true;
 
-            Time.timeScale = 0f;
+
+            if (timer != null)
+                timer.StopTimer();
+            if (winPanel != null)
+                winPanel.SetActive(true);
+
+
+            if (finalTimeText != null && timer != null)
+                finalTimeText.text = "Laiks:  " + timer.timerText.text;
         }
     }
+
     bool carPlace()
     {
-        foreach (GameObject place in  car)
+        foreach (GameObject place in car)
         {
-            DropPlaceScript checker = place.GetComponent <DropPlaceScript>();
+            DropPlaceScript checker = place.GetComponent<DropPlaceScript>();
             if (checker == null || !checker.objScript.rightPlace)
                 return false;
         }
