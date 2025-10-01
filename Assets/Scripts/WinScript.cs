@@ -36,6 +36,7 @@ public class WinScript : MonoBehaviour
             if (checker == null || !checker.objScript.rightPlace)
                 return false;
         }
+        Debug.Log("All cars");
         return true;
     }
 }
