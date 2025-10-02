@@ -1627,6 +1627,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2a0342e9a6f0e264da1bdeea2a81a162, type: 3}
   - {fileID: 8300000, guid: 2a0342e9a6f0e264da1bdeea2a81a162, type: 3}
   - {fileID: 8300000, guid: a141c1b688669674692962d3c7085ebd, type: 3}
+  - {fileID: 8300000, guid: f0b1d6bb5128f0b4e980b26f4fe00179, type: 3}
   rightPlace: 0
 --- !u!4 &901082003
 Transform:
@@ -1706,6 +1707,7 @@ MonoBehaviour:
   - {fileID: 6264203523192831077, guid: b36ba81d44851cb4590c03e55a813ba0, type: 3}
   - {fileID: 6264203523192831077, guid: 9a59733125be87c43b87c2db841867a4, type: 3}
   - {fileID: 6264203523192831077, guid: 3a098a94ef611ae44bca6571dc53307c, type: 3}
+  - {fileID: 6984563417821296556, guid: a1c38a6d8393d1c49ae07a0d3822fd01, type: 3}
   objectPrefabs:
   - {fileID: 6264203523192831077, guid: 2e793a1b5faf73f468bd70a7e243b775, type: 3}
   - {fileID: 6264203523192831077, guid: 36a2557c21a0c0041811c229949c2e2c, type: 3}
@@ -2649,8 +2651,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -636.9283, y: 142.78345}
-  m_SizeDelta: {x: 1282.1433, y: 1029.5669}
+  m_AnchoredPosition: {x: -642.5824, y: 148.43759}
+  m_SizeDelta: {x: 1270.8352, y: 1018.2585}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1617437647
 GameObject:

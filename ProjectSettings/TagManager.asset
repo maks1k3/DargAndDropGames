@@ -16,6 +16,7 @@ TagManager:
   - e61Car
   - YellowTraktor
   - Eksakvators
+  - Bomb
   layers:
   - Default
   - TransparentFX
