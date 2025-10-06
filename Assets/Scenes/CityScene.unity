@@ -1574,7 +1574,6 @@ GameObject:
   - component: {fileID: 901082005}
   - component: {fileID: 901082006}
   - component: {fileID: 901082007}
-  - component: {fileID: 901082008}
   - component: {fileID: 901082009}
   m_Layer: 0
   m_Name: ScriptHolder
@@ -1720,18 +1719,6 @@ MonoBehaviour:
   cloudMaxSpeed: 150
   objectMinSpeed: 2
   objectMaxSpeed: 200
---- !u!114 &901082008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901082001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2394db5b91e001a4da73483c338cdc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &901082009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2219,7 +2206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e852fb9a48fa61488633a250c1ce5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerText: {fileID: 0}
+  timerText: {fileID: 371047782}
   time: 0
   isRunning: 0
 --- !u!1 &1250167008
@@ -2369,8 +2356,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 643.13715, y: -145.80933}
-  m_SizeDelta: {x: 1233.1458, y: 981.9064}
+  m_AnchoredPosition: {x: 645.97, y: -148.468}
+  m_SizeDelta: {x: 1238.8, y: 987.2239}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1349289290
 MonoBehaviour:

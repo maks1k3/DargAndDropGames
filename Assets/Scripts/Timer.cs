@@ -9,10 +9,10 @@ public class Timer : MonoBehaviour
 
     void updateUI()
     {
-        int min=Mathf.FloorToInt(time/60);
-        int sec=Mathf.FloorToInt(time%60);
-        int milSec=Mathf.FloorToInt((time * 100)%100);
-        timerText.text = $"{min:00}:{sec:00}.{milSec:00}";   
+        int hour=Mathf.FloorToInt(time/3600f);
+        int min=Mathf.FloorToInt((time%3600f)/60f);
+        int sec=Mathf.FloorToInt(time%60f);
+        timerText.text=string.Format("{0}:{1:00}:{2:00}",hour,min,sec);  
 
     }
 

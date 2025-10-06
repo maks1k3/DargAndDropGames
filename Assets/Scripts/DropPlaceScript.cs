@@ -69,7 +69,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                             objScript.effects.PlayOneShot(objScript.audioCli[7]);
                             Debug.Log("audio7");
                             break;
-                        case "Traktors":
+                        case "Traktor":
                             objScript.effects.PlayOneShot(objScript.audioCli[8]);
                             Debug.Log("audio8");
                             break;
@@ -89,7 +89,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                             objScript.effects.PlayOneShot(objScript.audioCli[12]);
                             Debug.Log("audio12");
                             break;
-                        case "Ekskavators":
+                        case "Eksakvators":
                             objScript.effects.PlayOneShot(objScript.audioCli[13]);
                             Debug.Log("audio13");
                             break;
@@ -143,7 +143,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                     case "YellowTraktor":
                         objScript.vehicles[10].GetComponent<RectTransform>().localPosition = objScript.startCoordinates[10];
                         break;
-                    case "Ekskavators":
+                    case "Eksakvators":
                         objScript.vehicles[11].GetComponent<RectTransform>().localPosition = objScript.startCoordinates[11];
                         break;
 
