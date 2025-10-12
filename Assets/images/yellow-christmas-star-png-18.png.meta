@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1dcc83e4864542a48911cf13f5a443bf
+guid: d968055f224afd74aa6e3c43f2388bd2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9028461711715129261
-    second: AtraPalidziba_0
+      213: 7996327616632623355
+    second: yellow-christmas-star-png-18_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,43 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AtraPalidziba_0
+      name: yellow-christmas-star-png-18_0
       rect:
         serializedVersion: 2
-        x: 8
-        y: 62
-        width: 485
-        height: 217
+        x: 0
+        y: 16
+        width: 800
+        height: 768
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: da7defa871a8b4d70800000000000000
-      internalID: 9028461711715129261
+      spriteID: bf09809d999a8fe60800000000000000
+      internalID: 7996327616632623355
       vertices: []
       indices: 
       edges: []
@@ -160,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      AtraPalidziba_0: 9028461711715129261
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

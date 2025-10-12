@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -11,7 +9,6 @@ public class DragAndDropScript : MonoBehaviour, IPointerDownHandler, IBeginDragH
     public ObjectScript objectScr;
     public ScreenBoundriesScript screenBou;
 
-    // Start is called before the first frame update
     void Start()
     {
         canvasGro = GetComponent<CanvasGroup>();
@@ -22,7 +19,6 @@ public class DragAndDropScript : MonoBehaviour, IPointerDownHandler, IBeginDragH
     {
         if (Input.GetMouseButton(0) && !Input.GetMouseButton(1) && !Input.GetMouseButton(2))
         {
-            Debug.Log("OnPointerDown");
             objectScr.effects.PlayOneShot(objectScr.audioCli[0]);
         }
     }
@@ -35,10 +31,11 @@ public class DragAndDropScript : MonoBehaviour, IPointerDownHandler, IBeginDragH
             ObjectScript.lastDragged = eventData.pointerDrag;
             canvasGro.blocksRaycasts = false;
             canvasGro.alpha = 0.6f;
-            // rectTra.SetAsLastSibling()
+            
             int lastIndex = transform.parent.childCount - 1;
             int position = Mathf.Max(0, lastIndex - 1);
             transform.SetSiblingIndex(position);
+            
             Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(
                 new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenBou.screenPoint.z));
             rectTra.position = cursorWorldPos;
@@ -71,15 +68,12 @@ public class DragAndDropScript : MonoBehaviour, IPointerDownHandler, IBeginDragH
             canvasGro.blocksRaycasts = true;
             canvasGro.alpha = 1.0f;
 
-            if (objectScr.rightPlace)
+            vehicleData vehicleData = GetComponent<vehicleData>();
+            if (vehicleData != null && vehicleData.rightPlace)
             {
                 canvasGro.blocksRaycasts = false;
                 ObjectScript.lastDragged = null;
-
-
             }
-
-            objectScr.rightPlace = false;
         }
     }
 }

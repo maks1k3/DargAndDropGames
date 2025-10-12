@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class ButtonScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     public void ToFirstScene()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
