@@ -9,7 +9,7 @@ _Unity 2D Drag And Drop games for children +6_
 - [x] Create C# script for transformation
 - [x] Create C# script for object fixation
 - [x] Add necessary sounds and audio sources
-- [ ] Create logic for winning
+- [X] Create logic for winning
 - [x] Create camera script for zoom-in/out and camera restrictions
 - [X] Create animated main menu with 3 buttons, sounds, animated objects
 - [X] Create C# script for scene change and quit option
