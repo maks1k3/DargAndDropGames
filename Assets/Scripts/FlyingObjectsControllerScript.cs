@@ -53,24 +53,78 @@ public class FlyingObjectsControllerScript : MonoBehaviour
             isFadingOut = true;
         }
 
-        if (CompareTag("Bomb") && !isExploading && RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, Camera.main))
+        // ОБРАБОТКА БОМБЫ БЕЗ МАШИНЫ
+        if (CompareTag("Bomb") && !isExploading && !ObjectScript.drag &&
+            RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, Camera.main))
         {
             Debug.Log("The cursor collided with a bomb! (without car)");
             TriggerExplosion();
         }
 
-        if (ObjectScript.drag && !isFadingOut &&
+        // ОБРАБОТКА С МАШИНОЙ
+        if (ObjectScript.drag && !isFadingOut && !isExploading &&
             RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, Camera.main))
         {
             Debug.Log("The cursor collided with a flying object!");
 
             if (ObjectScript.lastDragged != null)
             {
-                StartCoroutine(HandleCarCollision(ObjectScript.lastDragged));
+                if (CompareTag("Bomb"))
+                {
+                    // ОСОБАЯ ОБРАБОТКА ДЛЯ БОМБЫ С МАШИНОЙ
+                    StartCoroutine(HandleBombWithCar(ObjectScript.lastDragged));
+                }
+                else
+                {
+                    // ОБЫЧНАЯ ОБРАБОТКА ДЛЯ ОБЫЧНЫХ ОБЪЕКТОВ
+                    StartCoroutine(HandleCarCollision(ObjectScript.lastDragged));
+                }
                 return;
             }
             StartToDestroy();
         }
+    }
+
+    IEnumerator HandleBombWithCar(GameObject car)
+    {
+        isExploading = true;
+
+        // Останавливаем перетаскивание
+        ObjectScript.lastDragged = null;
+        ObjectScript.drag = false;
+
+        // ЗАПУСКАЕМ АНИМАЦИЮ ВЗРЫВА БОМБЫ
+        if (TryGetComponent<Animator>(out Animator animator))
+        {
+            animator.SetBool("explode", true);
+        }
+
+        // ВОСПРОИЗВОДИМ ЗВУК ВЗРЫВА
+        if (objectScript != null && objectScript.audioCli.Length > 15)
+        {
+            objectScript.effects.PlayOneShot(objectScript.audioCli[15], 5f);
+        }
+
+        image.color = Color.red;
+        StartCoroutine(RecoverColor(0.4f));
+        StartCoroutine(Vibrate());
+
+        // УНИЧТОЖАЕМ МАШИНУ
+        yield return StartCoroutine(ShrinkAndDestroy(car, 0.8f));
+
+        // ВЗРЫВАЕМ БЛИЗКИЕ ОБЪЕКТЫ
+        float radius = 0f;
+        if (TryGetComponent<CircleCollider2D>(out CircleCollider2D circleCollider))
+        {
+            radius = circleCollider.radius * transform.lossyScale.x;
+            ExploadAndDestroy(radius);
+        }
+
+        // ЖДЕМ ЗАВЕРШЕНИЯ АНИМАЦИИ ВЗРЫВА
+        yield return new WaitForSeconds(1.5f);
+
+        // ПЕРЕЗАГРУЖАЕМ СЦЕНУ
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     IEnumerator HandleCarCollision(GameObject car)
@@ -78,12 +132,16 @@ public class FlyingObjectsControllerScript : MonoBehaviour
         ObjectScript.lastDragged = null;
         ObjectScript.drag = false;
 
-        if (objectScript != null && objectScript.audioCli.Length > 16)
+        if (objectScript != null && objectScript.audioCli.Length > 14)
         {
-            objectScript.effects.PlayOneShot(objectScript.audioCli[16]);
+            objectScript.effects.PlayOneShot(objectScript.audioCli[14]); 
         }
 
-        yield return StartCoroutine(ShrinkAndDestroy(car, 0.5f));
+        StartToDestroy();
+
+        yield return StartCoroutine(ShrinkAndDestroy(car, 0.8f));
+
+        yield return new WaitForSeconds(0.5f);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -141,10 +199,18 @@ public class FlyingObjectsControllerScript : MonoBehaviour
             StartCoroutine(FadeOutAndDestroy());
             isFadingOut = true;
 
-            image.color = Color.cyan;
+            if (CompareTag("Bomb"))
+                image.color = Color.red;
+            else
+                image.color = Color.cyan;
+
             StartCoroutine(RecoverColor(0.5f));
 
-            objectScript.effects.PlayOneShot(objectScript.audioCli[14]);
+            if (objectScript != null && objectScript.audioCli.Length > 5)
+            {
+                objectScript.effects.PlayOneShot(objectScript.audioCli[14]);
+            }
+
             StartCoroutine(Vibrate());
         }
     }
