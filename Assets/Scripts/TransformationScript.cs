@@ -2,71 +2,68 @@ using UnityEngine;
 
 public class TransformationScript : MonoBehaviour
 {
-    public float maxScale = 4.0f; 
-    public float minScale = 0.3f; 
+    private float minScale = 0.5f;
+    private float maxScale = 2.9f;
+    private float scaleSpeed = 0.05f; 
+    private float rotationSpeed = 60f;
 
     void Update()
     {
         if (ObjectScript.lastDragged != null)
         {
+            Transform draggedTransform = ObjectScript.lastDragged.GetComponent<RectTransform>().transform;
+            Vector3 currentScale = draggedTransform.localScale;
+
+            // ВРАЩЕНИЕ
             if (Input.GetKey(KeyCode.Z))
             {
-                ObjectScript.lastDragged.GetComponent<RectTransform>().transform.Rotate(
-                    0, 0, Time.deltaTime * 15f);
+                draggedTransform.Rotate(0, 0, Time.deltaTime * rotationSpeed);
             }
 
             if (Input.GetKey(KeyCode.X))
             {
-                ObjectScript.lastDragged.GetComponent<RectTransform>().transform.Rotate(
-                    0, 0, -Time.deltaTime * 15f);
+                draggedTransform.Rotate(0, 0, -Time.deltaTime * rotationSpeed);
             }
 
-            if (Input.GetKey(KeyCode.UpArrow))
+            // ИЗМЕНЕНИЕ РАЗМЕРА
+            // СТРЕЛКА ВВЕРХ - УВЕЛИЧИТЬ ВЫСОТУ (Y)
+            if (Input.GetKey(KeyCode.UpArrow) && currentScale.y < maxScale)
             {
-                if (ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.y < maxScale)
-                {
-                    ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale =
-                        new Vector3(
-                        ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.x,
-                        ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.y + 0.005f,
-                        1f);
-                }
+                draggedTransform.localScale = new Vector3(
+                    currentScale.x,
+                    currentScale.y + scaleSpeed,
+                    1f
+                );
             }
 
-            if (Input.GetKey(KeyCode.DownArrow))
+            // СТРЕЛКА ВНИЗ - УМЕНЬШИТЬ ВЫСОТУ (Y)
+            if (Input.GetKey(KeyCode.DownArrow) && currentScale.y > minScale)
             {
-                if (ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.y > minScale)
-                {
-                    ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale =
-                    new Vector3(
-                    ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.x,
-                    ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.y - 0.005f,
-                    1f);
-                }
+                draggedTransform.localScale = new Vector3(
+                    currentScale.x,
+                    currentScale.y - scaleSpeed,
+                    1f
+                );
             }
 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            // СТРЕЛКА ВЛЕВО - УМЕНЬШИТЬ ШИРИНУ (X)
+            if (Input.GetKey(KeyCode.LeftArrow) && currentScale.x > minScale)
             {
-                if (ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.x > minScale)
-                {
-                    ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale =
-                        new Vector3(
-                        ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.x - 0.005f,
-                        ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.y,
-                        1f);
-                }
+                draggedTransform.localScale = new Vector3(
+                    currentScale.x - scaleSpeed,
+                    currentScale.y,
+                    1f
+                );
             }
 
-            if (Input.GetKey(KeyCode.RightArrow))
+            // СТРЕЛКА ВПРАВО - УВЕЛИЧИТЬ ШИРИНУ (X)
+            if (Input.GetKey(KeyCode.RightArrow) && currentScale.x < maxScale)
             {
-                if (ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.x < maxScale)
-                {
-                    ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale =
-                        new Vector3(
-                        ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.x + 0.005f,
-                       ObjectScript.lastDragged.GetComponent<RectTransform>().transform.localScale.y,
-                        1f);
-                }
+                draggedTransform.localScale = new Vector3(
+                    currentScale.x + scaleSpeed,
+                    currentScale.y,
+                    1f
+                );
             }
         }
     }

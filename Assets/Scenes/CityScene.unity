@@ -2027,6 +2027,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2a0342e9a6f0e264da1bdeea2a81a162, type: 3}
   - {fileID: 8300000, guid: a141c1b688669674692962d3c7085ebd, type: 3}
   - {fileID: 8300000, guid: f0b1d6bb5128f0b4e980b26f4fe00179, type: 3}
+  minScale: 0.5
+  maxScale: 2.9
+  randomRotation: 1
+  randomScale: 1
+  randomPosition: 1
+  mapImage: {fileID: 1349289289}
+  spawnMargin: 50
 --- !u!4 &901082003
 Transform:
   m_ObjectHideFlags: 0
@@ -2073,8 +2080,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67e3f98e60232a4cbbf412e829d169f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxScale: 2
-  minScale: 0.3
 --- !u!114 &901082006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2609,7 +2614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1028, y: 776}
+  m_AnchoredPosition: {x: -1028, y: 778}
   m_SizeDelta: {x: 139.303, y: 70.734}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116970339
@@ -3100,8 +3105,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 641.54297, y: -155.21503}
-  m_SizeDelta: {x: 2354.3413, y: 1000.718}
+  m_AnchoredPosition: {x: 625.2466, y: -159.75897}
+  m_SizeDelta: {x: 2342.9143, y: 1000.7341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1349289290
 MonoBehaviour:
