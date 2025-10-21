@@ -42,4 +42,4 @@ _Unity 2D Drag And Drop games for children +6_
 - [X] Create game timer (HH:MM:SS)
 - [X] Add animated clouds, vehicles, people, animals etc.
 - [X] Add flying obstacles with destroy effects
-- [ ] Randomly spawn car places 
+- [X] Randomly spawn car places 
