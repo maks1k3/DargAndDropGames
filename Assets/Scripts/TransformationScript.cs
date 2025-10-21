@@ -4,7 +4,7 @@ public class TransformationScript : MonoBehaviour
 {
     private float minScale = 0.8f;
     private float maxScale = 2.9f;
-    private float scaleSpeed = 0.010f; 
+    private float scaleSpeed = 0.03f; 
     private float rotationSpeed = 60f;
 
     void Update()

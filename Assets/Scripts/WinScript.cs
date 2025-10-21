@@ -17,9 +17,9 @@ public class WinScript : MonoBehaviour
     public Image star3;
     public Color starFullColor = Color.yellow;
     public Color starEmptyColor = Color.gray;
-    public float timeFor3Stars = 150f;
-    public float timeFor2Stars = 270f;
-    public float timeFor1Star = 420f;
+    public float timeFor3Stars = 240f;
+    public float timeFor2Stars = 360f;
+    public float timeFor1Star = 480f;
 
     private bool gameFinished = false;
 

@@ -53,7 +53,6 @@ public class FlyingObjectsControllerScript : MonoBehaviour
             isFadingOut = true;
         }
 
-        // ОБРАБОТКА БОМБЫ БЕЗ МАШИНЫ
         if (CompareTag("Bomb") && !isExploading && !ObjectScript.drag &&
             RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, Camera.main))
         {
@@ -61,7 +60,6 @@ public class FlyingObjectsControllerScript : MonoBehaviour
             TriggerExplosion();
         }
 
-        // ОБРАБОТКА С МАШИНОЙ
         if (ObjectScript.drag && !isFadingOut && !isExploading &&
             RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, Camera.main))
         {
@@ -71,12 +69,10 @@ public class FlyingObjectsControllerScript : MonoBehaviour
             {
                 if (CompareTag("Bomb"))
                 {
-                    // ОСОБАЯ ОБРАБОТКА ДЛЯ БОМБЫ С МАШИНОЙ
                     StartCoroutine(HandleBombWithCar(ObjectScript.lastDragged));
                 }
                 else
                 {
-                    // ОБЫЧНАЯ ОБРАБОТКА ДЛЯ ОБЫЧНЫХ ОБЪЕКТОВ
                     StartCoroutine(HandleCarCollision(ObjectScript.lastDragged));
                 }
                 return;
@@ -89,17 +85,14 @@ public class FlyingObjectsControllerScript : MonoBehaviour
     {
         isExploading = true;
 
-        // Останавливаем перетаскивание
         ObjectScript.lastDragged = null;
         ObjectScript.drag = false;
 
-        // ЗАПУСКАЕМ АНИМАЦИЮ ВЗРЫВА БОМБЫ
         if (TryGetComponent<Animator>(out Animator animator))
         {
             animator.SetBool("explode", true);
         }
 
-        // ВОСПРОИЗВОДИМ ЗВУК ВЗРЫВА
         if (objectScript != null && objectScript.audioCli.Length > 15)
         {
             objectScript.effects.PlayOneShot(objectScript.audioCli[15], 5f);
@@ -109,10 +102,8 @@ public class FlyingObjectsControllerScript : MonoBehaviour
         StartCoroutine(RecoverColor(0.4f));
         StartCoroutine(Vibrate());
 
-        // УНИЧТОЖАЕМ МАШИНУ
         yield return StartCoroutine(ShrinkAndDestroy(car, 0.8f));
 
-        // ВЗРЫВАЕМ БЛИЗКИЕ ОБЪЕКТЫ
         float radius = 0f;
         if (TryGetComponent<CircleCollider2D>(out CircleCollider2D circleCollider))
         {
@@ -120,10 +111,8 @@ public class FlyingObjectsControllerScript : MonoBehaviour
             ExploadAndDestroy(radius);
         }
 
-        // ЖДЕМ ЗАВЕРШЕНИЯ АНИМАЦИИ ВЗРЫВА
-        yield return new WaitForSeconds(1.5f);
+       
 
-        // ПЕРЕЗАГРУЖАЕМ СЦЕНУ
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
