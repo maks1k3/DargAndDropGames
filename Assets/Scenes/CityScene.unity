@@ -2027,7 +2027,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2a0342e9a6f0e264da1bdeea2a81a162, type: 3}
   - {fileID: 8300000, guid: a141c1b688669674692962d3c7085ebd, type: 3}
   - {fileID: 8300000, guid: f0b1d6bb5128f0b4e980b26f4fe00179, type: 3}
-  minScale: 0.5
+  minScale: 0.8
   maxScale: 2.9
   randomRotation: 1
   randomScale: 1
@@ -3651,7 +3651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1850.8, y: -67.005}
+  m_AnchoredPosition: {x: 2354.8, y: -111}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1901715802 stripped

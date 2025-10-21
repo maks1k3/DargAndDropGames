@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TransformationScript : MonoBehaviour
 {
-    private float minScale = 0.5f;
+    private float minScale = 0.8f;
     private float maxScale = 2.9f;
-    private float scaleSpeed = 0.05f; 
+    private float scaleSpeed = 0.010f; 
     private float rotationSpeed = 60f;
 
     void Update()
@@ -14,7 +14,6 @@ public class TransformationScript : MonoBehaviour
             Transform draggedTransform = ObjectScript.lastDragged.GetComponent<RectTransform>().transform;
             Vector3 currentScale = draggedTransform.localScale;
 
-            // ВРАЩЕНИЕ
             if (Input.GetKey(KeyCode.Z))
             {
                 draggedTransform.Rotate(0, 0, Time.deltaTime * rotationSpeed);
@@ -25,8 +24,6 @@ public class TransformationScript : MonoBehaviour
                 draggedTransform.Rotate(0, 0, -Time.deltaTime * rotationSpeed);
             }
 
-            // ИЗМЕНЕНИЕ РАЗМЕРА
-            // СТРЕЛКА ВВЕРХ - УВЕЛИЧИТЬ ВЫСОТУ (Y)
             if (Input.GetKey(KeyCode.UpArrow) && currentScale.y < maxScale)
             {
                 draggedTransform.localScale = new Vector3(
@@ -36,7 +33,6 @@ public class TransformationScript : MonoBehaviour
                 );
             }
 
-            // СТРЕЛКА ВНИЗ - УМЕНЬШИТЬ ВЫСОТУ (Y)
             if (Input.GetKey(KeyCode.DownArrow) && currentScale.y > minScale)
             {
                 draggedTransform.localScale = new Vector3(
@@ -46,7 +42,6 @@ public class TransformationScript : MonoBehaviour
                 );
             }
 
-            // СТРЕЛКА ВЛЕВО - УМЕНЬШИТЬ ШИРИНУ (X)
             if (Input.GetKey(KeyCode.LeftArrow) && currentScale.x > minScale)
             {
                 draggedTransform.localScale = new Vector3(
@@ -56,7 +51,6 @@ public class TransformationScript : MonoBehaviour
                 );
             }
 
-            // СТРЕЛКА ВПРАВО - УВЕЛИЧИТЬ ШИРИНУ (X)
             if (Input.GetKey(KeyCode.RightArrow) && currentScale.x < maxScale)
             {
                 draggedTransform.localScale = new Vector3(

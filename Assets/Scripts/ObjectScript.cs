@@ -10,7 +10,7 @@ public class ObjectScript : MonoBehaviour
     public static GameObject lastDragged = null;
     public static bool drag = false;
 
-    public float minScale = 0.5f;
+    public float minScale = 0.8f;
     public float maxScale = 2.9f;
     public bool randomRotation = true;
     public bool randomScale = true;

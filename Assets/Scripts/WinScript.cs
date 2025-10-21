@@ -12,15 +12,14 @@ public class WinScript : MonoBehaviour
     public Timer timer;
     public Text finalTimeText;
 
-    // Система звезд
     public Image star1;
     public Image star2;
     public Image star3;
     public Color starFullColor = Color.yellow;
     public Color starEmptyColor = Color.gray;
-    public float timeFor3Stars = 60f;
-    public float timeFor2Stars = 120f;
-    public float timeFor1Star = 180f;
+    public float timeFor3Stars = 150f;
+    public float timeFor2Stars = 270f;
+    public float timeFor1Star = 420f;
 
     private bool gameFinished = false;
 
