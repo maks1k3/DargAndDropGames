@@ -107,7 +107,6 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                     {
                         vehicleData.rightPlace = false;
                     }
-                    ReturnToStartPosition(eventData.pointerDrag);
                 }
             }
             else
