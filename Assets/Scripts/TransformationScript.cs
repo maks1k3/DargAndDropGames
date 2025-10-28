@@ -1,64 +1,61 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TransformationScript : MonoBehaviour
 {
-    private float minScale = 0.8f;
-    private float maxScale = 2.9f;
-    private float scaleSpeed = 0.03f; 
-    private float rotationSpeed = 60f;
+    public float rotationSpeed = 90f;
+    public float scaleSpeed = 0.5f;
+    public static bool isTransforming = false;
+    private bool rotateCW, rotateCCW, scaleUpY, scaleDownY, scaleUpX, scaleDownX;
 
-    void Update()
+    private void Update()
     {
-        if (ObjectScript.lastDragged != null)
+        if (ObjectScript.lastDragged == null)
+            return;
+
+        RectTransform rt= ObjectScript.lastDragged.GetComponent<RectTransform>();
+
+        if (rotateCW)
         {
-            Transform draggedTransform = ObjectScript.lastDragged.GetComponent<RectTransform>().transform;
-            Vector3 currentScale = draggedTransform.localScale;
-
-            if (Input.GetKey(KeyCode.Z))
-            {
-                draggedTransform.Rotate(0, 0, Time.deltaTime * rotationSpeed);
-            }
-
-            if (Input.GetKey(KeyCode.X))
-            {
-                draggedTransform.Rotate(0, 0, -Time.deltaTime * rotationSpeed);
-            }
-
-            if (Input.GetKey(KeyCode.UpArrow) && currentScale.y < maxScale)
-            {
-                draggedTransform.localScale = new Vector3(
-                    currentScale.x,
-                    currentScale.y + scaleSpeed,
-                    1f
-                );
-            }
-
-            if (Input.GetKey(KeyCode.DownArrow) && currentScale.y > minScale)
-            {
-                draggedTransform.localScale = new Vector3(
-                    currentScale.x,
-                    currentScale.y - scaleSpeed,
-                    1f
-                );
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow) && currentScale.x > minScale)
-            {
-                draggedTransform.localScale = new Vector3(
-                    currentScale.x - scaleSpeed,
-                    currentScale.y,
-                    1f
-                );
-            }
-
-            if (Input.GetKey(KeyCode.RightArrow) && currentScale.x < maxScale)
-            {
-                draggedTransform.localScale = new Vector3(
-                    currentScale.x + scaleSpeed,
-                    currentScale.y,
-                    1f
-                );
-            }
+            rt.Rotate(0, 0, -rotationSpeed * Time.deltaTime);
         }
+        if (rotateCCW)
+        {
+            rt.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+        }
+        if(scaleUpY && rt.localScale.y < 0.9f)
+        {
+            rt.localScale += new Vector3(0, scaleSpeed * Time.deltaTime, 0);
+        }
+        if (scaleDownY && rt.localScale.y > 0.35f)
+        {
+            rt.localScale -= new Vector3(0, scaleSpeed * Time.deltaTime, 0);
+        }
+        if (scaleUpX && rt.localScale.x < 0.9f)
+        {
+            rt.localScale += new Vector3(scaleSpeed * Time.deltaTime, 0,0);
+        }
+        if (scaleDownX && rt.localScale.x > 0.35f)
+        {
+            rt.localScale -= new Vector3(scaleSpeed * Time.deltaTime, 0,0);
+        }
+        isTransforming = rotateCW || rotateCCW || scaleUpY || scaleDownY || scaleUpX || scaleDownX;
     }
+    public void StartRotateCW(BaseEventData data) { rotateCW = true; }
+    public void StopRotateCW(BaseEventData data) { rotateCW = false; }
+
+    public void StartRotateCCW(BaseEventData data) { rotateCCW = true; }
+    public void StopRotateCCW(BaseEventData data) { rotateCCW = false; }
+
+    public void StartScaleUpY(BaseEventData data) { scaleUpY = true; }
+    public void StopScaleUpY(BaseEventData data) { scaleUpY = false; }
+
+    public void StartScaleDownY(BaseEventData data) { scaleDownY = true; }
+    public void StopScaleDownY(BaseEventData data) { scaleDownY = false; }
+
+    public void StartScaleUpX(BaseEventData data) { scaleUpX = true; }
+    public void StopScaleUpX(BaseEventData data) { scaleUpX = false; }
+
+    public void StartScaleDownX(BaseEventData data) { scaleDownX = true; }
+    public void StopScaleDownX(BaseEventData data) { scaleDownX = false; }
 }

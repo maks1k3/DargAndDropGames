@@ -1301,8 +1301,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxZoom: 1008
   minZoom: 150
-  panSpeed: 6
+  puncZoomSpeed: 0.9
+  mouseZoomSpeed: 150
+  mouseFollowSpeed: 1
+  touchPanSpeed: 1
+  screenBoundries: {fileID: 0}
   cam: {fileID: 519420031}
+  doubleTapMaxDelay: 0.4
+  doubleTapMaxDistance: 100
 --- !u!1 &568806809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2501016035002987472, guid: 5033ce4dd0864b644b1ed0fb338846af, type: 3}
@@ -2112,7 +2118,14 @@ MonoBehaviour:
   maxX: 0
   minY: 0
   maxY: 0
+  worldBounds:
+    serializedVersion: 2
+    x: -960
+    y: -540
+    width: 1920
+    height: 1080
   padding: 0.02
+  targetCamera: {fileID: 0}
 --- !u!114 &901082005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2125,6 +2138,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67e3f98e60232a4cbbf412e829d169f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 60
+  scaleSpeed: 0.03
 --- !u!114 &901082006
 MonoBehaviour:
   m_ObjectHideFlags: 0
