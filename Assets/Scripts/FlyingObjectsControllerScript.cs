@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+// CHANGES NOT NEEDED FOR ANDROID
 public class FlyingObjectsControllerScript : MonoBehaviour
 {
     [HideInInspector]
@@ -90,7 +91,7 @@ public class FlyingObjectsControllerScript : MonoBehaviour
 
     #elif UNITY_ANDROID
       if(Input.touchCount>0){
-          position=Input.GetTouch(0).position
+          position=Input.GetTouch(0).position;
           return true;
         }
         else

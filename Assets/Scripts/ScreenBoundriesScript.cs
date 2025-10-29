@@ -10,7 +10,7 @@ public class ScreenBoundriesScript : MonoBehaviour
     [HideInInspector]
     public float minX, maxX, minY, maxY;
 
-    public Rect worldBounds = new Rect(-960, -540, 1920, 1080);
+    public Rect worldBounds = new Rect(-480, -270, 960, 540);
     [Range(0f, 0.5f)]
     public float padding = 0.02f;
 
@@ -29,6 +29,7 @@ public class ScreenBoundriesScript : MonoBehaviour
 
     void Awake()
     {
+        
        if (targetCamera == null)
         {
             targetCamera = Camera.main;
@@ -84,7 +85,7 @@ public class ScreenBoundriesScript : MonoBehaviour
             }
             if (halfH*2f>=(wbMaxY- wbMinY))
             {
-                minCamY = maxCamY = (wbMinX + wbMaxY) * 0.5f;
+                minCamY = maxCamY = 0;
             }
             else
             {

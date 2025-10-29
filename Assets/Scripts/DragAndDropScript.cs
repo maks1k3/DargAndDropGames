@@ -76,7 +76,7 @@ public class DragAndDropScript : MonoBehaviour, IPointerDownHandler, IBeginDragH
     public void OnDrag(PointerEventData eventData)
     {
         Vector3 pointerWorld;
-        if (ScreenPointToWorld(eventData.position, out pointerWorld))
+        if (!ScreenPointToWorld(eventData.position, out pointerWorld))
             return;
 
         Vector3 desiredPosition = pointerWorld + dragOffsetWorld;

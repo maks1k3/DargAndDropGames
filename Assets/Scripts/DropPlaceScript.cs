@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-
+// CHANGES FOR ANDRIOD
 public class DropPlaceScript : MonoBehaviour, IDropHandler
 {
     private float placeZRot, vehicleZRot, rotDiff;
@@ -15,7 +15,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
             objScript = Object.FindFirstObjectByType<ObjectScript>();
         }
     }
-
+    // CHANGES FOR ANDRIOD
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null)
