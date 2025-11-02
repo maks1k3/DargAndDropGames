@@ -1,120 +1,119 @@
-using Unity.Mathematics;
 using UnityEngine;
-
-//CHANGES FOR ANDROID
 
 public class ScreenBoundriesScript : MonoBehaviour
 {
     [HideInInspector]
     public Vector3 screenPoint, offset;
+
     [HideInInspector]
     public float minX, maxX, minY, maxY;
 
-    public Rect worldBounds = new Rect(-480, -270, 960, 540);
-    [Range(0f, 0.5f)]
+    public Camera targetCamera;
+
+    public float mapMinX = -1000f;
+    public float mapMaxX = 1000f;
+    public float mapMinY = -600f;
+    public float mapMaxY = 600f;
+
+    [Range(0f, 0.1f)]
     public float padding = 0.02f;
 
-    public Camera targetCamera;
     public float minCamX { get; private set; }
     public float maxCamX { get; private set; }
     public float minCamY { get; private set; }
     public float maxCamY { get; private set; }
 
-    float lastOrthoSize;
-    float lastAspect;
-    Vector3 lastCamPos;
-
-
-
-
     void Awake()
     {
-        
-       if (targetCamera == null)
-        {
+        if (targetCamera == null)
             targetCamera = Camera.main;
-        }
 
+        AutoDetectMapBounds();
         RecalculateBounds();
+
+        UpdatePublicFields();
+
     }
 
     void Update()
     {
-        if (targetCamera == null)
-        {
-            targetCamera = Camera.main;
-        }
-        bool changed = false;
-        if (targetCamera.orthographic)
-        {
-            if (!Mathf.Approximately(targetCamera.orthographicSize, lastOrthoSize))
-                changed = true;
+        if (targetCamera == null) return;
 
-        }
-        if (!Mathf.Approximately(targetCamera.orthographicSize, lastOrthoSize))
-            changed = true;
-        if (targetCamera.transform.position != lastCamPos)
-            changed = true;
+        bool changed = false;
+        if (!Mathf.Approximately(targetCamera.orthographicSize, minCamX)) changed = true;
+        if (targetCamera.transform.position != screenPoint) changed = true;
 
         if (changed)
         {
             RecalculateBounds();
+            UpdatePublicFields();
         }
     }
-    public void RecalculateBounds()
-    {
-        if (targetCamera == null)
-            return;
-        float wbMinX=worldBounds.xMin;
-        float wbMaxX=worldBounds.xMax;
-        float wbMinY=worldBounds.yMin;
-        float wbMaxY=worldBounds.yMax;
 
-        if (targetCamera.orthographic)
+    void AutoDetectMapBounds()
+    {
+        GameObject mapObject = GameObject.Find("Map");
+        if (mapObject != null)
         {
-            float halfH = targetCamera.orthographicSize;
-            float halfW = halfH * targetCamera.aspect;
-            if(halfW*2f >= (wbMaxX - wbMinX))
+            RectTransform mapRect = mapObject.GetComponent<RectTransform>();
+            if (mapRect != null)
             {
-                minCamX = maxCamX = (wbMinX + wbMaxX) * 0.5f;
-            }
-            else
-            {
-                minCamX = wbMinX + halfW;
-                maxCamX = wbMaxX - halfW;
-            }
-            if (halfH*2f>=(wbMaxY- wbMinY))
-            {
-                minCamY = maxCamY = 0;
-            }
-            else
-            {
-                minCamY = wbMinY + halfH;
-                maxCamY= wbMaxY - halfH;
+                Vector3[] corners = new Vector3[4];
+                mapRect.GetWorldCorners(corners);
+
+                mapMinX = corners[0].x;
+                mapMaxX = corners[2].x;
+                mapMinY = corners[0].y;
+                mapMaxY = corners[2].y;
+
+             
             }
         }
-        lastOrthoSize = targetCamera.orthographicSize;
-        lastAspect=targetCamera.aspect;
-        lastCamPos = targetCamera.transform.position;
+    }
+
+    public void RecalculateBounds()
+    {
+        if (targetCamera == null) return;
+
+        float cameraHeight = targetCamera.orthographicSize;
+        float cameraWidth = cameraHeight * targetCamera.aspect;
+
+        minCamX = mapMinX + cameraWidth;
+        maxCamX = mapMaxX - cameraWidth;
+        minCamY = mapMinY + cameraHeight;
+        maxCamY = mapMaxY - cameraHeight;
+    }
+
+    void UpdatePublicFields()
+    {
+        minX = mapMinX;
+        maxX = mapMaxX;
+        minY = mapMinY;
+        maxY = mapMaxY;
     }
 
     public Vector2 GetClampedPosition(Vector3 curPosition)
     {
-        float shrinkW = worldBounds.width * padding;
-        float shrinkH= worldBounds.height * padding;
-        float wbMinX = worldBounds.xMin + shrinkW;
-        float wbMaxX= worldBounds.xMax - shrinkW;
-        float wbMinY = worldBounds.yMin + shrinkH;
-        float wbMaxY = worldBounds.yMax - shrinkH;
+        float paddingX = (mapMaxX - mapMinX) * padding;
+        float paddingY = (mapMaxY - mapMinY) * padding;
 
-        float cx = Mathf.Clamp(curPosition.x, wbMinX, wbMaxX);
-        float cy = Mathf.Clamp(curPosition.y, wbMinY, wbMaxY);
-        return new Vector2 (cx, cy);
+        float wbMinX = mapMinX + paddingX;
+        float wbMaxX = mapMaxX - paddingX;
+        float wbMinY = mapMinY + paddingY;
+        float wbMaxY = mapMaxY - paddingY;
+
+        return new Vector2(
+            Mathf.Clamp(curPosition.x, wbMinX, wbMaxX),
+            Mathf.Clamp(curPosition.y, wbMinY, wbMaxY)
+        );
     }
+
     public Vector3 GetClampedCameraPosition(Vector3 desiredCamCenter)
     {
-        float cx = Mathf.Clamp(desiredCamCenter.x, minCamX, maxCamX);
-        float cy = Mathf.Clamp(desiredCamCenter.y, minCamY, minCamY);
-        return new Vector3(cx, cy,desiredCamCenter.z);
+        return new Vector3(
+            Mathf.Clamp(desiredCamCenter.x, minCamX, maxCamX),
+            Mathf.Clamp(desiredCamCenter.y, minCamY, maxCamY),
+            desiredCamCenter.z
+        );
     }
 }
