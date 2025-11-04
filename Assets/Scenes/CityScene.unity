@@ -1282,7 +1282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 156, y: 70}
+  m_AnchoredPosition: {x: 181, y: 91}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &366382444 stripped
@@ -2923,14 +2923,12 @@ MonoBehaviour:
   maxX: 0
   minY: 0
   maxY: 0
-  worldBounds:
-    serializedVersion: 2
-    x: -960
-    y: -540
-    width: 1920
-    height: 1080
-  padding: 0.02
   targetCamera: {fileID: 0}
+  mapMinX: -1000
+  mapMaxX: 1000
+  mapMinY: -600
+  mapMaxY: 600
+  padding: 0.02
 --- !u!114 &901082005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3865,7 +3863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 364, y: -973}
+  m_AnchoredPosition: {x: 435, y: -1215}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1250167008

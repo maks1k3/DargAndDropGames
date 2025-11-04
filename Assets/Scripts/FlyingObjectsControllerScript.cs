@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-// CHANGES NOT NEEDED FOR ANDROID
 public class FlyingObjectsControllerScript : MonoBehaviour
 {
     [HideInInspector]
@@ -53,10 +52,13 @@ public class FlyingObjectsControllerScript : MonoBehaviour
             StartCoroutine(FadeOutAndDestroy());
             isFadingOut = true;
         }
+
         Vector2 inputPosition;
-        if (!TryGetInputPosition(out inputPosition))
+        if (!TryGetValidInputPosition(out inputPosition))
             return;
+
         if (CompareTag("Bomb") && !isExploading && !ObjectScript.drag &&
+            IsValidScreenPosition(inputPosition) &&
             RectTransformUtility.RectangleContainsScreenPoint(rectTransform, inputPosition, Camera.main))
         {
             Debug.Log("The cursor collided with a bomb! (without car)");
@@ -64,6 +66,7 @@ public class FlyingObjectsControllerScript : MonoBehaviour
         }
 
         if (ObjectScript.drag && !isFadingOut && !isExploading &&
+            IsValidScreenPosition(inputPosition) &&
             RectTransformUtility.RectangleContainsScreenPoint(rectTransform, inputPosition, Camera.main))
         {
             Debug.Log("The cursor collided with a flying object!");
@@ -83,25 +86,43 @@ public class FlyingObjectsControllerScript : MonoBehaviour
             StartToDestroy();
         }
     }
-    bool TryGetInputPosition(out Vector2 position)
-    {
-    #if UNITY_EDITOR || UNITY_STANDALONE
-            position = Input.mousePosition;
-            return true;
 
-    #elif UNITY_ANDROID
-      if(Input.touchCount>0){
-          position=Input.GetTouch(0).position;
-          return true;
+    bool TryGetValidInputPosition(out Vector2 position)
+    {
+#if UNITY_EDITOR || UNITY_STANDALONE
+        position = Input.mousePosition;
+        return true;
+#elif UNITY_ANDROID
+        if (Input.touchCount > 0)
+        {
+            position = Input.GetTouch(0).position;
+            return true;
         }
         else
         {
-        position=Vector2.zero;
-        return false;
+            position = Vector2.zero;
+            return false;
         }
-    
-    #endif
+#endif
     }
+
+    bool IsValidScreenPosition(Vector2 screenPos)
+    {
+        if (float.IsInfinity(screenPos.x) || float.IsInfinity(screenPos.y) ||
+            float.IsNaN(screenPos.x) || float.IsNaN(screenPos.y))
+        {
+            return false;
+        }
+
+        if (screenPos.x < 0 || screenPos.x > Screen.width ||
+            screenPos.y < 0 || screenPos.y > Screen.height)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     IEnumerator HandleBombWithCar(GameObject car)
     {
         isExploading = true;
@@ -132,8 +153,6 @@ public class FlyingObjectsControllerScript : MonoBehaviour
             ExploadAndDestroy(radius);
         }
 
-       
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -144,7 +163,7 @@ public class FlyingObjectsControllerScript : MonoBehaviour
 
         if (objectScript != null && objectScript.audioCli.Length > 14)
         {
-            objectScript.effects.PlayOneShot(objectScript.audioCli[14]); 
+            objectScript.effects.PlayOneShot(objectScript.audioCli[14]);
         }
 
         StartToDestroy();
@@ -227,7 +246,6 @@ public class FlyingObjectsControllerScript : MonoBehaviour
 
     IEnumerator Vibrate()
     {
-
 #if UNITY_ANDROID
         Handheld.Vibrate();
 #endif
