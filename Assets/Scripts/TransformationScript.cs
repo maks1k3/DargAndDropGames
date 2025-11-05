@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class TransformationScript : MonoBehaviour
@@ -41,13 +41,13 @@ public class TransformationScript : MonoBehaviour
         }
         isTransforming = rotateCW || rotateCCW || scaleUpY || scaleDownY || scaleUpX || scaleDownX;
     }
-    public void StartRotateCW(BaseEventData data) { rotateCW = true; }
+    public void StartRotateCW(BaseEventData data) { rotateCW = true;}
     public void StopRotateCW(BaseEventData data) { rotateCW = false; }
 
     public void StartRotateCCW(BaseEventData data) { rotateCCW = true; }
     public void StopRotateCCW(BaseEventData data) { rotateCCW = false; }
 
-    public void StartScaleUpY(BaseEventData data) { scaleUpY = true; }
+    public void StartScaleUpY(BaseEventData data) { scaleUpY = true;}
     public void StopScaleUpY(BaseEventData data) { scaleUpY = false; }
 
     public void StartScaleDownY(BaseEventData data) { scaleDownY = true; }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ScreenBoundriesScript : MonoBehaviour
 {
@@ -23,6 +23,10 @@ public class ScreenBoundriesScript : MonoBehaviour
     public float minCamY { get; private set; }
     public float maxCamY { get; private set; }
 
+    float lastOrthoSize;
+    float lastAspect;
+    Vector3 lastCamPos;
+
     void Awake()
     {
         if (targetCamera == null)
@@ -30,9 +34,7 @@ public class ScreenBoundriesScript : MonoBehaviour
 
         AutoDetectMapBounds();
         RecalculateBounds();
-
         UpdatePublicFields();
-
     }
 
     void Update()
@@ -40,13 +42,27 @@ public class ScreenBoundriesScript : MonoBehaviour
         if (targetCamera == null) return;
 
         bool changed = false;
-        if (!Mathf.Approximately(targetCamera.orthographicSize, minCamX)) changed = true;
-        if (targetCamera.transform.position != screenPoint) changed = true;
+
+        if (targetCamera.orthographic)
+        {
+            if (!Mathf.Approximately(targetCamera.orthographicSize, lastOrthoSize))
+                changed = true;
+        }
+
+        if (!Mathf.Approximately(targetCamera.aspect, lastAspect))
+            changed = true;
+
+        if (targetCamera.transform.position != lastCamPos)
+            changed = true;
 
         if (changed)
         {
             RecalculateBounds();
             UpdatePublicFields();
+
+            lastOrthoSize = targetCamera.orthographicSize;
+            lastAspect = targetCamera.aspect;
+            lastCamPos = targetCamera.transform.position;
         }
     }
 
@@ -65,8 +81,6 @@ public class ScreenBoundriesScript : MonoBehaviour
                 mapMaxX = corners[2].x;
                 mapMinY = corners[0].y;
                 mapMaxY = corners[2].y;
-
-
             }
         }
     }
@@ -78,10 +92,25 @@ public class ScreenBoundriesScript : MonoBehaviour
         float cameraHeight = targetCamera.orthographicSize;
         float cameraWidth = cameraHeight * targetCamera.aspect;
 
-        minCamX = mapMinX + cameraWidth;
-        maxCamX = mapMaxX - cameraWidth;
-        minCamY = mapMinY + cameraHeight;
-        maxCamY = mapMaxY - cameraHeight;
+        if (cameraWidth * 2f >= (mapMaxX - mapMinX))
+        {
+            minCamX = maxCamX = (mapMinX + mapMaxX) * 0.5f;
+        }
+        else
+        {
+            minCamX = mapMinX + cameraWidth;
+            maxCamX = mapMaxX - cameraWidth;
+        }
+
+        if (cameraHeight * 2f >= (mapMaxY - mapMinY))
+        {
+            minCamY = maxCamY = (mapMinY + mapMaxY) * 0.5f;
+        }
+        else
+        {
+            minCamY = mapMinY + cameraHeight;
+            maxCamY = mapMaxY - cameraHeight;
+        }
     }
 
     void UpdatePublicFields()
@@ -115,5 +144,13 @@ public class ScreenBoundriesScript : MonoBehaviour
             Mathf.Clamp(desiredCamCenter.y, minCamY, maxCamY),
             desiredCamCenter.z
         );
+    }
+
+    public Rect worldBounds
+    {
+        get
+        {
+            return new Rect(mapMinX, mapMinY, mapMaxX - mapMinX, mapMaxY - mapMinY);
+        }
     }
 }
