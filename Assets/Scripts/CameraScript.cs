@@ -150,12 +150,14 @@ HandleTouch();
         float elapsed = 0f;
         float initialZoom = cam.orthographicSize;
 
+        float targetZoom = maxZoom;
+
         while (elapsed < duration)
         {
             //Remember to hange for slowmotion
             elapsed += Time.deltaTime;
-
-            cam.orthographicSize = Mathf.Lerp(initialZoom, startZoom, elapsed / duration);
+            cam.orthographicSize = Mathf.Lerp(initialZoom, targetZoom, elapsed / duration);
+            
             screenBoundries.RecalculateBounds();
             transform.position = screenBoundries.GetClampedCameraPosition(transform.position);
             yield return null;
@@ -165,5 +167,15 @@ HandleTouch();
         transform.position = screenBoundries.GetClampedCameraPosition(transform.position);
 
     }
+
+    //void UpdateMaxZoom()
+   // {
+      //  if (ScreenBoundriesScript == null || cam == null)
+      //      return;
+      //  Rect wb = ScreenBoundriesScript.worldBounds;
+      //  float maxZoomHeight = wb.height / 2f;
+      //  float maxZoomWidth = (wb.width / 2f) / cam.aspect;
+      //  maxZoom = Mathf.Min(maxZoomHeight, maxZoomWidth);
+   // }
 
 }
