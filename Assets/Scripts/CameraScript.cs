@@ -71,8 +71,8 @@ public class CameraScript : MonoBehaviour
         Vector3 screenPoint = new Vector3(mouse.x, mouse.y, cam.nearClipPlane);
         Vector3 targetWorld = cam.ScreenToWorldPoint(screenPoint);
         Vector3 desired = new Vector3(targetWorld.x, targetWorld.y, transform.position.z);
-
-        transform.position = Vector3.Lerp(transform.position, desired, mouseFollowSpeed * Time.deltaTime);
+        // Remember to change for slowmotion
+        transform.position = Vector3.Lerp(transform.position, desired, mouseFollowSpeed * Time.unscaledDeltaTime);
     }
 
     void HandleTouch()
@@ -157,7 +157,7 @@ public class CameraScript : MonoBehaviour
 
         while (elapsed < duration)
         {
-            elapsed += Time.deltaTime;
+            elapsed += Time.unscaledDeltaTime;
             cam.orthographicSize = Mathf.Lerp(initialZoom, targetZoom, elapsed / duration);
             screenBoundries.RecalculateBounds();
             transform.position = screenBoundries.GetClampedCameraPosition(transform.position);
