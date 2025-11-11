@@ -18,6 +18,7 @@ TagManager:
   - Eksakvators
   - Bomb
   - IntertitialButton
+  - RewardedButton
   layers:
   - Default
   - TransparentFX
