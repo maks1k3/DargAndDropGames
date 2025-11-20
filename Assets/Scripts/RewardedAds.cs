@@ -9,25 +9,26 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
     string _adUnitId;
 
     [SerializeField] Button _rewardedAdButton;
-    public FlyingObjectManager flyingObjectManager;
+    public FlyingObjectManager flayingObjectManager;
 
-    public void Awake()
+
+    private void Awake()
     {
         _adUnitId = _androidAdUnitId;
 
-        if(flyingObjectManager == null)
-            flyingObjectManager = FindFirstObjectByType<FlyingObjectManager>();
+        if (flayingObjectManager == null)
+            flayingObjectManager = FindFirstObjectByType<FlyingObjectManager>();
     }
 
     public void LoadAd()
     {
         if (!Advertisement.isInitialized)
         {
-            Debug.LogWarning("Tried to load rewarded ad before Unity ads was initialized");
+            Debug.LogWarning("Tried to load rewarded ad before Unity ads was initialized.");
             return;
         }
 
-        Debug.Log("Loading rewarded ad");
+        Debug.Log("Loading rewarded ad.");
         Advertisement.Load(_adUnitId, this);
     }
 
@@ -46,6 +47,7 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
         Debug.LogWarning("Failed to load rewarded ad!");
         StartCoroutine(WaitAndLoad(5f));
     }
+
     public IEnumerator WaitAndLoad(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -54,7 +56,7 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
-        Debug.LogWarning("Failed to load rewarded ad!");
+        Debug.LogWarning("Failed to show rewarded ad!");
         StartCoroutine(WaitAndLoad(5f));
     }
 
@@ -71,18 +73,20 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
 
-       // if(placementId.Equals(_adUnitId)&& showCompletionState.Equals(UnityAdsCompletionState.COMPLETED)) {
-          //  Debug.Log("Rewarded ad completed!");
-            flyingObjectManager.DestroyAllFlyingObjects();
-            _rewardedAdButton.interactable = false;
-            StartCoroutine(WaitAndLoad(10f));
-       // }
+        //if (placementId.Equals(_adUnitId) &&
+        //  showCompletionState.Equals(UnityAdsCompletionState.COMPLETED)) {
+        Debug.Log("Rewarded ad completed!");
+        flayingObjectManager.DestroyAllFlyingObjects();
+        _rewardedAdButton.interactable = false;
+        StartCoroutine(WaitAndLoad(10f));
+        // }
+
         Time.timeScale = 1f;
-   }
+    }
 
     public void SetButton(Button button)
     {
-        if(button == null)
+        if (button == null)
         {
             return;
         }
