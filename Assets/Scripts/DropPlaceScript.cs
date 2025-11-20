@@ -37,7 +37,7 @@ public class DropPlaceScript : MonoBehaviour, IDropHandler
                 Debug.Log("Y size difference: " + ySizeDiff);
 
                 if ((rotDiff <= 5 || (rotDiff >= 350 && rotDiff <= 360)) &&
-                    (xSizeDiff <= 0.30 && ySizeDiff <= 0.30))
+                    (xSizeDiff <= 1 && ySizeDiff <= 1))
                 {
                     Debug.Log("Correct place: " + eventData.pointerDrag.name);
 

@@ -106,17 +106,19 @@ public class FlyingObjectsControllerScript : MonoBehaviour
 #endif
     }
 
-    // ДОБАВЛЕНА ПРОВЕРКА ВАЛИДНОСТИ ПОЗИЦИИ
+
+    
+        
     bool IsValidScreenPosition(Vector2 screenPos)
     {
-        // Проверяем что позиция в пределах экрана
+
         if (float.IsInfinity(screenPos.x) || float.IsInfinity(screenPos.y) ||
             float.IsNaN(screenPos.x) || float.IsNaN(screenPos.y))
         {
             return false;
         }
 
-        // Проверяем что позиция в пределах разрешения экрана
+
         if (screenPos.x < 0 || screenPos.x > Screen.width ||
             screenPos.y < 0 || screenPos.y > Screen.height)
         {

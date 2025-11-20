@@ -17,6 +17,8 @@ TagManager:
   - YellowTraktor
   - Eksakvators
   - Bomb
+  - IntertitialButton
+  - RewardedButton
   layers:
   - Default
   - TransparentFX
