@@ -1,92 +1,70 @@
 using UnityEngine;
-using UnityEngine.Advertisements;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class BannerAd : MonoBehaviour
 {
-    [SerializeField] string _androidAdUnitId = "Banner_Android";
-    string _adUnitId;
-    [SerializeField] Button _bannerButton;
-    public bool isBannerVisible = false;
-    [SerializeField] BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
+    [SerializeField] string _androidId = "Banner_Android";
+    private string _adUnit;
+
+    private Button _button;
+
+    public bool isLoaded = false;
+    public bool isVisible = false;
+
+    [SerializeField] BannerPosition _position = BannerPosition.BOTTOM_CENTER;
 
     private void Awake()
     {
-        _adUnitId = _androidAdUnitId;
-        Advertisement.Banner.SetPosition(_bannerPosition);
+        _adUnit = _androidId;
+        Advertisement.Banner.SetPosition(_position);
     }
 
     public void LoadBanner()
     {
-        if (!Advertisement.isInitialized)
+        BannerLoadOptions opts = new BannerLoadOptions
         {
-            Debug.LogWarning("Tried to load banner ad before ads was initialized!");
-            return;
-        }
-        Debug.Log("Loading banner ad...");
-        BannerLoadOptions options = new BannerLoadOptions
-        {
-            loadCallback = OnBannerLoaded,
-            errorCallback = OnBannerError
+            loadCallback = OnLoaded,
+            errorCallback = OnError
         };
-        Advertisement.Banner.Load(_adUnitId, options);
 
+        Advertisement.Banner.Load(_adUnit, opts);
     }
-    void OnBannerLoaded()
+
+    private void OnLoaded()
     {
-        Debug.Log("Banner ad loaded successfully");
-        _bannerButton.interactable = true;
+        isLoaded = true;
+
+        if (_button != null)
+            _button.interactable = true;
     }
-    void OnBannerError(string message)
+
+    private void OnError(string msg)
     {
-        Debug.LogWarning($"Banner ad failed to load: {message}");
         LoadBanner();
     }
-    public void ShowBannerAd()
+
+    public void ToggleBanner()
     {
-        if (isBannerVisible)
+        if (!isVisible)
         {
-            HideBannerAd();
+            Advertisement.Banner.Show(_adUnit);
+            isVisible = true;
         }
         else
         {
-            BannerOptions options = new BannerOptions
-            {
-                showCallback = OnBannerShown,
-                hideCallback = OnBannerHidden,
-                clickCallback = OnBannerClicked
-            };
-            Advertisement.Banner.Show(_adUnitId, options);
-
+            Advertisement.Banner.Hide();
+            isVisible = false;
         }
-    }
-    public void HideBannerAd()
-    {
-        Advertisement.Banner.Hide();
-    }
-    void OnBannerShown()
-    {
-        Debug.Log("Banner ad is now visible");
-        isBannerVisible = true;
-    }
-    void OnBannerHidden()
-    {
-        Debug.Log("Banner ad is now hidden");
-        isBannerVisible = false;
-    }
-    void OnBannerClicked()
-    {
-        Debug.Log("Banner ad was clicked");
     }
 
     public void SetButton(Button button)
     {
-        if (button == null)
-            return;
+        _button = button;
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(ShowBannerAd);
-        _bannerButton = button;
-        _bannerButton.interactable = false;
+        button.onClick.AddListener(ToggleBanner);
+
+        button.interactable = isLoaded;
     }
 }
