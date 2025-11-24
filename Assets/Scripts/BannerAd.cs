@@ -1,4 +1,3 @@
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
@@ -9,7 +8,7 @@ public class BannerAd : MonoBehaviour
     string _adUnitId;
     [SerializeField] Button _bannerButton;
     public bool isBannerVisible = false;
-    [SerializeField] BannerPosition _bannerPosition= BannerPosition.BOTTOM_CENTER;
+    [SerializeField] BannerPosition _bannerPosition = BannerPosition.BOTTOM_CENTER;
 
     private void Awake()
     {
@@ -19,15 +18,16 @@ public class BannerAd : MonoBehaviour
 
     public void LoadBanner()
     {
-        if(!Advertisement.isInitialized)
+        if (!Advertisement.isInitialized)
         {
             Debug.LogWarning("Tried to load banner ad before ads was initialized!");
             return;
         }
         Debug.Log("Loading banner ad...");
-        BannerLoadOptions options = new BannerLoadOptions { 
-        loadCallback=OnBannerLoaded,
-        errorCallback=OnBannerError
+        BannerLoadOptions options = new BannerLoadOptions
+        {
+            loadCallback = OnBannerLoaded,
+            errorCallback = OnBannerError
         };
         Advertisement.Banner.Load(_adUnitId, options);
 
@@ -54,7 +54,7 @@ public class BannerAd : MonoBehaviour
             {
                 showCallback = OnBannerShown,
                 hideCallback = OnBannerHidden,
-                clickCallback=OnBannerClicked
+                clickCallback = OnBannerClicked
             };
             Advertisement.Banner.Show(_adUnitId, options);
 
@@ -88,8 +88,5 @@ public class BannerAd : MonoBehaviour
         button.onClick.AddListener(ShowBannerAd);
         _bannerButton = button;
         _bannerButton.interactable = false;
-        {
-            
-        }
     }
 }
