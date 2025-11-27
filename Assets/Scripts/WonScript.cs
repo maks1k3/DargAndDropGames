@@ -16,14 +16,11 @@ public class WonScript : MonoBehaviour
     {
         winPanel.SetActive(true);
 
-        // форматируем секунды в MM:SS
         int min = Mathf.FloorToInt(time / 60f);
         int sec = Mathf.FloorToInt(time % 60f);
 
-        // ВЫВОДИМ ВРЕМЯ В ОКНЕ
         timeText.text = $"{min:00}:{sec:00}";
 
-        // определяем количество звёзд
         int index = 0;
         if (time <= threeStarTime) index = 2;
         else if (time <= twoStarTime) index = 1;

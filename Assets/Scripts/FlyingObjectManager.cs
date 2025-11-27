@@ -6,7 +6,6 @@ public class FlyingObjectManager : MonoBehaviour
 
     private void Awake()
     {
-        // Если уже есть другой экземпляр — удалить этот
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -15,7 +14,6 @@ public class FlyingObjectManager : MonoBehaviour
 
         Instance = this;
 
-        // Делаем менеджер глобальным
         DontDestroyOnLoad(gameObject);
     }
 

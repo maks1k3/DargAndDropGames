@@ -34,7 +34,6 @@ public class Disk : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             return;
         }
 
-        // только верхний
         if (currentTower.GetTopDisk() != this)
         {
             eventData.pointerDrag = null;
@@ -73,7 +72,7 @@ public class Disk : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         float minDist = float.MaxValue;
         Tower best = null;
 
-        Vector2 diskWorldPos = rect.position; // МИРОВАЯ позиция
+        Vector2 diskWorldPos = rect.position; 
 
         foreach (Tower t in towers)
         {
@@ -88,7 +87,7 @@ public class Disk : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
             }
         }
 
-        if (minDist < 300f)   // можешь увеличить до 400-500 если нужно
+        if (minDist < 300f)   
             return best;
 
         return null;

@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public Text timerText;     // верхний таймер
-    public Text timerText2;    // внутрь winPanel (может быть null)
+    public Text timerText;    
+    public Text timerText2;    
 
     public float time = 0f;
     public bool isRunning = false;

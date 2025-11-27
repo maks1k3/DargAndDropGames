@@ -5,10 +5,9 @@ public class Tower : MonoBehaviour
 {
     public float diskHeight = 110f;
 
-    // приватный список — правильная практика
     private List<Disk> disks = new List<Disk>();
 
-    // публичный доступ только для чтения
+   
     public int DiskCount => disks.Count;
     public List<Disk> Disks => disks;
 
@@ -53,13 +52,12 @@ public class Tower : MonoBehaviour
         }
     }
 
-    // ПРОВЕРКА ПРАВИЛЬНОСТИ СОРТИРОВКИ
+ 
     public bool IsCorrectlySorted()
     {
         if (disks.Count == 0)
             return false;
 
-        // нижний диск должен быть самым большим
         for (int i = 0; i < disks.Count - 1; i++)
         {
             if (disks[i].size < disks[i + 1].size)

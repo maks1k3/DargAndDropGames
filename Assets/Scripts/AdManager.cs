@@ -16,7 +16,6 @@ public class AdManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -26,20 +25,17 @@ public class AdManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Ensure ads initializer exists
         if (initializer == null)
             initializer = FindFirstObjectByType<AdsInitializer>();
 
         if (initializer != null)
             initializer.OnAdsInitialized += OnInitialized;
 
-        // 👇 Автоматически создаём недостающие рекламные объекты
         AutoCreateAds();
     }
 
     private void AutoCreateAds()
     {
-        // Interstitial
         if (interstitial == null)
         {
             var obj = new GameObject("InterstitialAd_Auto");
@@ -47,7 +43,6 @@ public class AdManager : MonoBehaviour
             interstitial = obj.AddComponent<InterstitialAd>();
         }
 
-        // Rewarded
         if (rewarded == null)
         {
             var obj = new GameObject("RewardedAd_Auto");
@@ -55,7 +50,6 @@ public class AdManager : MonoBehaviour
             rewarded = obj.AddComponent<RewardedAds>();
         }
 
-        // Banner
         if (banner == null)
         {
             var obj = new GameObject("BannerAd_Auto");
@@ -86,7 +80,7 @@ public class AdManager : MonoBehaviour
 
     private IEnumerator DelayedSceneSetup(Scene s)
     {
-        yield return null; // ждём пока UI появится
+        yield return null; 
 
         BindButtons();
         LoadAds();

@@ -14,11 +14,11 @@ public class HanoiManager : MonoBehaviour
             {
                 Debug.Log("Победа! Все диски отсортированы.");
 
-                timer.StopTimer();     // стоп таймер
-                Time.timeScale = 0f;   // стоп ИГРУ
+                timer.StopTimer();     
+                Time.timeScale = 0f;  
 
-                wonScript.ShowWin(timer.time);  // передаём время
-                enabled = false; // отключаем повторные проверки
+                wonScript.ShowWin(timer.time); 
+                enabled = false; 
                 return;
             }
         }
