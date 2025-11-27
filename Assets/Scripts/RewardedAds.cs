@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
 {
@@ -11,14 +12,15 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
     private Button _button;
 
     public bool isLoaded = false;
-    public FlyingObjectManager flyingManager;
+
+    private bool isCooldown = false;
+    private float cooldownTime = 10f;  
+    private float freezeTime = 3f;     
 
     private void Awake()
     {
         _adUnit = _androidId;
-
-        if (flyingManager == null)
-            flyingManager = FindFirstObjectByType<FlyingObjectManager>();
+        DontDestroyOnLoad(gameObject);
     }
 
     public void LoadAd()
@@ -31,7 +33,7 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
     {
         isLoaded = true;
 
-        if (_button != null)
+        if (_button != null && !isCooldown)
             _button.interactable = true;
     }
 
@@ -42,14 +44,25 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
 
     IEnumerator Reload()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1f);
         LoadAd();
     }
 
     public void ShowAd()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            if (isCooldown) return;
+
+            StartCoroutine(FreezeTimeFor3Sec());
+            StartCoroutine(CooldownTimer());
+        }
+
         if (!isLoaded)
+        {
+            LoadAd();
             return;
+        }
 
         Advertisement.Show(_adUnit, this);
 
@@ -59,17 +72,41 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
             _button.interactable = false;
     }
 
+    private IEnumerator FreezeTimeFor3Sec()
+    {
+        float oldScale = Time.timeScale;
+
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(freezeTime);
+        Time.timeScale = oldScale;
+    }
+
+    private IEnumerator CooldownTimer()
+    {
+        isCooldown = true;
+
+        if (_button != null)
+            _button.interactable = false;
+
+        yield return new WaitForSecondsRealtime(cooldownTime);
+
+        isCooldown = false;
+
+        if (isLoaded && _button != null)
+            _button.interactable = true;
+    }
+
     public void OnUnityAdsShowStart(string placementId)
     {
-        Time.timeScale = 0f;
+        
     }
 
     public void OnUnityAdsShowClick(string placementId) { }
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        flyingManager.DestroyAllFlyingObjects();
-        Time.timeScale = 1f;
+        if (FlyingObjectManager.Instance != null)
+            FlyingObjectManager.Instance.DestroyAllFlyingObjects();
 
         StartCoroutine(Reload());
     }

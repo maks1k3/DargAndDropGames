@@ -3,45 +3,46 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public Text timerText;
+    public Text timerText;     // верхний таймер
+    public Text timerText2;    // внутрь winPanel (может быть null)
+
     public float time = 0f;
     public bool isRunning = false;
+
+    public WonScript wonScript;
+
+    void Start()
+    {
+        Time.timeScale = 1f; 
+        time = 0f;
+        isRunning = true;
+        Debug.Log("Timer started");
+    }
+
+    void Update()
+    {
+        if (!isRunning) return;
+
+        time += Time.deltaTime;
+        UpdateUI();
+        Debug.Log("UPDATE WORKS!");
+    }
 
     void UpdateUI()
     {
         int hour = Mathf.FloorToInt(time / 3600f);
         int min = Mathf.FloorToInt((time % 3600f) / 60f);
         int sec = Mathf.FloorToInt(time % 60f);
-        timerText.text = string.Format("{0}:{1:00}:{2:00}", hour, min, sec);
-    }
 
-    void Start()
-    {
-        isRunning = true;
-        Debug.Log("Timer started");
-    }
+        string text = $"{hour}:{min:00}:{sec:00}";
 
-    private void Update()
-    {
-        if (isRunning)
-        {
-            time += Time.deltaTime;
-            UpdateUI();
-        }
+        if (timerText != null) timerText.text = text;
+        if (timerText2 != null) timerText2.text = text;
     }
 
     public void StopTimer()
     {
-        if (isRunning)
-        {
-            isRunning = false;
-            Debug.Log("Time: " + timerText.text);
-        }
-    }
-
-    public void ResetTimer()
-    {
-        time = 0f;
-        UpdateUI();
+        isRunning = false;
+        Debug.Log("Timer stopped at: " + time);
     }
 }

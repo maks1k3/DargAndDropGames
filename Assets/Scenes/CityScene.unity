@@ -2968,7 +2968,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901082001}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4308b492425cfb94394fae49a07eac05, type: 3}
   m_Name: 
@@ -5343,9 +5343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45050f8f9190b754ea9c89e5d482039d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _androidAdUnitId: Interstitial_Android
-  isReady: 0
-  _interstitialAdButton: {fileID: 0}
+  _androidId: Interstitial_Android
+  isLoaded: 0
 --- !u!114 &1805467104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5372,13 +5371,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af82bc040eb22045b446f0727610a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adsInitializer: {fileID: 0}
-  interstitialAd: {fileID: 0}
-  rewardedAds: {fileID: 0}
-  bannerAd: {fileID: 0}
-  turnOffInterstitialAd: 0
-  turnOffRewardedAds: 0
-  turnOffBannerAd: 0
+  initializer: {fileID: 0}
+  interstitial: {fileID: 0}
+  rewarded: {fileID: 0}
+  banner: {fileID: 0}
 --- !u!4 &1805467106
 Transform:
   m_ObjectHideFlags: 0
@@ -5406,9 +5402,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9bf128006ed344090abec10b23b899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _androidAdUnitId: Rewarded_Android
-  _rewardedAdButton: {fileID: 0}
-  flayingObjectManager: {fileID: 1805467108}
+  _androidId: Rewarded_Android
+  isLoaded: 0
+  flyingManager: {fileID: 0}
 --- !u!114 &1805467108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5433,10 +5429,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b3c27131d701e40b42a29a378257d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _androidAdUnitId: Banner_Android
-  _bannerButton: {fileID: 0}
-  isBannerVisible: 0
-  _bannerPosition: 4
+  _androidId: Banner_Android
+  isLoaded: 0
+  isVisible: 0
+  _position: 4
 --- !u!1 &1854204833 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3750967920521136549, guid: dea07d4405e1d074595579c8e778e395, type: 3}

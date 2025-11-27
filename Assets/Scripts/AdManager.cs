@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class AdManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class AdManager : MonoBehaviour
 
     private void Awake()
     {
+        // Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -24,17 +26,42 @@ public class AdManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        // Ensure ads initializer exists
         if (initializer == null)
             initializer = FindFirstObjectByType<AdsInitializer>();
 
         if (initializer != null)
             initializer.OnAdsInitialized += OnInitialized;
+
+        // 👇 Автоматически создаём недостающие рекламные объекты
+        AutoCreateAds();
     }
 
-    private void OnInitialized()
+    private void AutoCreateAds()
     {
-        FindAds();
-        LoadAds();
+        // Interstitial
+        if (interstitial == null)
+        {
+            var obj = new GameObject("InterstitialAd_Auto");
+            obj.transform.SetParent(transform);
+            interstitial = obj.AddComponent<InterstitialAd>();
+        }
+
+        // Rewarded
+        if (rewarded == null)
+        {
+            var obj = new GameObject("RewardedAd_Auto");
+            obj.transform.SetParent(transform);
+            rewarded = obj.AddComponent<RewardedAds>();
+        }
+
+        // Banner
+        if (banner == null)
+        {
+            var obj = new GameObject("BannerAd_Auto");
+            obj.transform.SetParent(transform);
+            banner = obj.AddComponent<BannerAd>();
+        }
     }
 
     private void OnEnable()
@@ -47,27 +74,37 @@ public class AdManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    private void OnInitialized()
+    {
+        LoadAds();
+    }
+
     private void OnSceneLoaded(Scene s, LoadSceneMode mode)
     {
-        FindAds();
+        StartCoroutine(DelayedSceneSetup(s));
+    }
+
+    private IEnumerator DelayedSceneSetup(Scene s)
+    {
+        yield return null; // ждём пока UI появится
+
         BindButtons();
         LoadAds();
 
         if (s.buildIndex != 0)
             visitedOtherScenes = true;
 
-        if (s.buildIndex == 1 && interstitial != null)
-            interstitial.ShowAd();
+        if (s.buildIndex == 1)
+            interstitial?.ShowAd();
 
-        if (s.buildIndex == 0 && visitedOtherScenes && interstitial != null)
-            interstitial.ShowAd();
-    }
+        if (s.buildIndex == 0 && visitedOtherScenes)
+            interstitial?.ShowAd();
 
-    private void FindAds()
-    {
-        if (interstitial == null) interstitial = FindFirstObjectByType<InterstitialAd>();
-        if (rewarded == null) rewarded = FindFirstObjectByType<RewardedAds>();
-        if (banner == null) banner = FindFirstObjectByType<BannerAd>();
+        if (s.buildIndex == 2)
+        {
+            banner?.LoadBanner();
+            banner?.ToggleBanner();
+        }
     }
 
     private void LoadAds()
@@ -80,12 +117,12 @@ public class AdManager : MonoBehaviour
     private void BindButtons()
     {
         var i = GameObject.FindGameObjectWithTag("IntertitialButton");
-        if (i) interstitial?.SetButton(i.GetComponent<Button>());
+        if (i && interstitial) interstitial.SetButton(i.GetComponent<Button>());
 
         var r = GameObject.FindGameObjectWithTag("RewardedButton");
-        if (r) rewarded?.SetButton(r.GetComponent<Button>());
+        if (r && rewarded) rewarded.SetButton(r.GetComponent<Button>());
 
         var b = GameObject.FindGameObjectWithTag("BannerButton");
-        if (b) banner?.SetButton(b.GetComponent<Button>());
+        if (b && banner) banner.SetButton(b.GetComponent<Button>());
     }
 }

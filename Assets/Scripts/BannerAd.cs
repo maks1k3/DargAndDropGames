@@ -66,5 +66,7 @@ public class BannerAd : MonoBehaviour
         button.onClick.AddListener(ToggleBanner);
 
         button.interactable = isLoaded;
+        if (isLoaded)
+        button.interactable = true;
     }
 }

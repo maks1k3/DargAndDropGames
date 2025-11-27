@@ -13,6 +13,10 @@ public class ButtonScript : MonoBehaviour
     {
         SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
+    public void ToThirdScene()
+    {
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
+    }
 
     public void Quit()
     {
