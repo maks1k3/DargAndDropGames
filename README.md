@@ -26,6 +26,32 @@ _Unity 2D Drag And Drop games for children +6_
 
 
 
+### ANDROID
+1. Ieejot no Main Scene uz DragAndDrop scene uzreiz tiek parādītā reklāma, kā arī var uzvēlēties citu reklāmu, vai banneru. Rewarded Ads DragAndDrop scene iznīcinās visus lidojošus objektus.
+   
+<img width="211" height="404" alt="Screenshot (2)" src="https://github.com/user-attachments/assets/fced3df8-21a2-4fc1-9ab1-bc8fb21ca316" />
+
+2. Atgriežoties atpakaļ uz Main Scene tiks automātiski parādīta reklāma, bet reklāmas pogas nav.
+   
+<img width="216" height="436" alt="Screenshot (3)" src="https://github.com/user-attachments/assets/d5a3a0da-8125-4d2e-b0ee-2f9f3a102e4c" />
+   
+3. Hanojas scene arī uzreiz rādās reklāma
+4. Hanojas scene ir automātiskais banneris
+<img width="438" height="200" alt="Screenshot (4)" src="https://github.com/user-attachments/assets/f8ff2fe0-9fe7-406f-b7ea-022bc3b388e3" />
+
+5. Tos diskus vajag salikt pareizā secībā pēc izmēra, kad tas tiks izdarīts, izleksas uzvaras logs ar laiku, var arī restartēt spēli no sākuma, vai spēles beigās
+
+
+   <img width="435" height="205" alt="Screenshot (5)" src="https://github.com/user-attachments/assets/bcf8be37-f489-436e-bdb0-70fc088f8fd7" />
+   
+6. Hanojas scene nospiežot Rewarded ads laiks tiks iesaldēts uz 3 sekundēm un atkal varēs apskatīties rewarded ads pēc 10 sekundēm
+
+   
+
+
+
+
+
 
 **To do list:**
 - [x] Create the necessary folders 
@@ -42,4 +68,13 @@ _Unity 2D Drag And Drop games for children +6_
 - [X] Create game timer (HH:MM:SS)
 - [X] Add animated clouds, vehicles, people, animals etc.
 - [X] Add flying obstacles with destroy effects
-- [X] Randomly spawn car places 
+- [X] Randomly spawn car places
+- [x] Change target platform to Android
+- [x] Replace al mouse input with touch
+- [X] Fix camera max zoom
+- [X] Add interstitial ad
+- [X] Add rewarded ad
+- [X] Add banner ad
+- [X] Created Hanoi tower
+- [X] Hanoi WinPanel and logic
+- [X] Ads bonus
