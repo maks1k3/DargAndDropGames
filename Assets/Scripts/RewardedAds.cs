@@ -15,12 +15,12 @@ public class RewardedAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowLi
 
     private bool isCooldown = false;
     private float cooldownTime = 10f;  
-    private float freezeTime = 3f;     
+    private float freezeTime = 7f;     
 
     private void Awake()
     {
         _adUnit = _androidId;
-        DontDestroyOnLoad(gameObject);
+        
     }
 
     public void LoadAd()

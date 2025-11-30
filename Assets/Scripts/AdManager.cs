@@ -96,6 +96,7 @@ public class AdManager : MonoBehaviour
 
         if (s.buildIndex == 2)
         {
+            interstitial?.ShowAd();
             banner?.LoadBanner();
             banner?.ToggleBanner();
         }
