@@ -2959,8 +2959,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 371047782}
+  timerText2: {fileID: 0}
   time: 0
   isRunning: 0
+  wonScript: {fileID: 0}
 --- !u!114 &901082007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5309,130 +5311,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4643509827246017151, guid: 109b60ea6e0318e48adcd0c28280b5bf, type: 3}
   m_PrefabInstance: {fileID: 8991188773664626335}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1805467102
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1805467106}
-  - component: {fileID: 1805467105}
-  - component: {fileID: 1805467104}
-  - component: {fileID: 1805467103}
-  - component: {fileID: 1805467107}
-  - component: {fileID: 1805467108}
-  - component: {fileID: 1805467109}
-  m_Layer: 0
-  m_Name: Ads
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1805467103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805467102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45050f8f9190b754ea9c89e5d482039d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _androidId: Interstitial_Android
-  isLoaded: 0
---- !u!114 &1805467104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805467102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69bd95fd8d2f1624ca8e6c2bfe02f417, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _androidGameId: 5979331
-  _testMode: 1
---- !u!114 &1805467105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805467102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6af82bc040eb22045b446f0727610a8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initializer: {fileID: 0}
-  interstitial: {fileID: 0}
-  rewarded: {fileID: 0}
-  banner: {fileID: 0}
---- !u!4 &1805467106
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805467102}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1249.2699, y: -133.05255, z: -8.816689}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1805467107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805467102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e9bf128006ed344090abec10b23b899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _androidId: Rewarded_Android
-  isLoaded: 0
-  flyingManager: {fileID: 0}
---- !u!114 &1805467108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805467102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a62e1f2f46ba278409770241e709b0ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1805467109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805467102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72b3c27131d701e40b42a29a378257d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _androidId: Banner_Android
-  isLoaded: 0
-  isVisible: 0
-  _position: 4
 --- !u!1 &1854204833 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3750967920521136549, guid: dea07d4405e1d074595579c8e778e395, type: 3}
@@ -6879,4 +6757,3 @@ SceneRoots:
   - {fileID: 727651766}
   - {fileID: 901082003}
   - {fileID: 24264449}
-  - {fileID: 1805467106}
